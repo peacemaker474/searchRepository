@@ -18,7 +18,26 @@ const IssueLists = styled.ul`
 `;
 
 const IssueList = styled.li`
+    font-size: 1.5rem;
+    padding: 5px 0;
 
+    &:first-child {
+        margin-bottom: 5px;
+    }
+`;
+
+const RepoTitle = styled.span`
+    padding-right: 30px;
+`;
+
+const IssueTitle = styled.span`
+
+`;
+
+
+const IssueLink = styled.a`
+    color: black;
+    text-decoration: none;
 `;
 
 function IssuesPage() {
@@ -47,10 +66,15 @@ function IssuesPage() {
             {
                 isLoading ? <Loading> Loading... </Loading> :
                     <IssueLists>
+                        <IssueList>
+                            <RepoTitle> Repository </RepoTitle>
+                            <IssueTitle> Issue </IssueTitle>
+                        </IssueList>
                         {
                             issueData && issueData?.map((item) => (
                                 <IssueList key={item.id}>
-                                    {item.title}
+                                    <RepoTitle> Typescript </RepoTitle>
+                                    <IssueLink href={item.html_url} target="_blank"> {item.title} </IssueLink>
                                 </IssueList>
                             ))
                         }
