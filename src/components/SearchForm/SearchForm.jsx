@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { fetchGetUserRepositories } from '../../network/api';
 import SearchList from './SearchList';
@@ -46,6 +47,7 @@ const NoneTilte = styled.h2`
 `;
 
 function SearchForm() {
+    const searchInput = useRef(null);
     const [searchValue, setSearchValue] = useState(null);
     const [repoData, setRepoData] = useState();
     const [searchData, setSearchData] = useState([]);
@@ -75,11 +77,19 @@ function SearchForm() {
                 <Button type="button">
                     🔍
                 </Button>
-                <Input type="text" placeholder="Github Repositories를 입력하세요" onChange={handleSeacrh} />
+                <Input type="text" placeholder="Github Repositories를 입력하세요" onChange={handleSeacrh} ref={searchInput} />
             </Form>
             <AnswerWrapper>
                 {
-                    !searchData.length && searchValue ? <NoneTilte> 검색하신 레포지토리가 없습니다. </NoneTilte> : <SearchList searchData={searchData} searchValue={searchValue} />
+                    !searchData.length && searchValue ?
+                        <NoneTilte> 검색하신 레포지토리가 없습니다. </NoneTilte> :
+                        <SearchList
+                            searchData={searchData}
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue}
+                            searchInput={searchInput}
+                            setSearchData={setSearchData}
+                        />
                 }
             </AnswerWrapper>
         </Wrapper>

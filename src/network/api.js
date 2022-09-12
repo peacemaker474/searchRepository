@@ -8,12 +8,16 @@ export const fetchGetUserRepositories = async () => {
     return response;
 };
 
-export const fetchGetRepoIssues = async (userName, repoName) => {
+export const fetchGetRepoIssues = async () => {
+    // const userName = "peacemaker474";
+
+    // fetch(`https://api.github.com/repos/${userName}/${repoName}/issues`)
+
     const response = await (
-        await fetch(`https://api.github.com/repos/${userName}/${repoName}/issues`)
+        await fetch(`https://api.github.com/repos/microsoft/TypeScript/issues`)
     ).json()
 
-    return response
+    return response;
 };
 
 export const getRegisterData = () => {

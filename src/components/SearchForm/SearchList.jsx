@@ -45,16 +45,24 @@ const RegisterBtn = styled.button`
     cursor: pointer;
 `;
 
-function SearchList({ searchData, searchValue }) {
+function SearchList({ searchData, searchValue, setSearchValue, searchInput, setSearchData }) {
     const handleRegisterRepo = (evt) => {
         const filterId = evt.target.previousSibling.innerText;
         const filterData = searchData.filter((value) => value.name === filterId);
 
         setRegisterData(filterData[0]);
+
+        setSearchValue(null);
+        setSearchData([]);
+        searchInput.current.value = "";
     }
 
     const handleRemoveRepo = (evt) => {
         removeReposData(evt.target.id);
+
+        setSearchValue(null);
+        setSearchData([]);
+        searchInput.current.value = "";
     }
 
     return (

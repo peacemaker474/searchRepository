@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Toggle from './Toggle';
 
 const RepositoriesWrapper = styled.ul`
     width: 60%;
@@ -97,33 +96,30 @@ const RepoUpdated = styled.span`
 `;
 
 function Repositories({ repos }) {
-
-    const handleShowIssues = (evt) => {
-    }
-
     return (
-        <RepositoriesWrapper repos={!repos}>
-            {
-                !repos ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
-                    repos?.map((item) => (
-                        <RepositoryList key={item.id} onClick={handleShowIssues}>
-                            <RepoHeader>
-                                <RepoTitle> {item.name} </RepoTitle>
-                                {item.language ? <RepoLanguage> {item.language} </RepoLanguage> : null}
-                            </RepoHeader>
-                            <RepoDescription> {item.description} </RepoDescription>
-                            <RepoFooter>
-                                <OnwerBox>
-                                    <OwnerImage src={`${item.owner.avatar_url}`} />
-                                    <RepoOwner> {item.owner.login} </RepoOwner>
-                                </OnwerBox>
-                                <RepoUpdated> Updated {item.updated_at.slice(0, 10).replaceAll(",", "-")} </RepoUpdated>
-                            </RepoFooter>
-                            <Toggle />
-                        </RepositoryList>
-                    ))
-            }
-        </RepositoriesWrapper>
+        <>
+            <RepositoriesWrapper repos={!repos}>
+                {
+                    !repos ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
+                        repos?.map((item) => (
+                            <RepositoryList key={item.id} data-name={item.name}>
+                                <RepoHeader>
+                                    <RepoTitle> {item.name} </RepoTitle>
+                                    {item.language ? <RepoLanguage> {item.language} </RepoLanguage> : null}
+                                </RepoHeader>
+                                <RepoDescription> {item.description} </RepoDescription>
+                                <RepoFooter>
+                                    <OnwerBox>
+                                        <OwnerImage src={`${item.owner.avatar_url}`} />
+                                        <RepoOwner> {item.owner.login} </RepoOwner>
+                                    </OnwerBox>
+                                    <RepoUpdated> Updated {item.updated_at.slice(0, 10).replaceAll(",", "-")} </RepoUpdated>
+                                </RepoFooter>
+                            </RepositoryList>
+                        ))
+                }
+            </RepositoriesWrapper>
+        </>
     );
 }
 

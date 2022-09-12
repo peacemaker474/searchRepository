@@ -30,6 +30,7 @@ const NavLink = styled(Link)`
 function Navbar() {
     const homePath = useMatch("/");
     const repoPath = useMatch("/repos");
+    const issuePath = useMatch("/issues");
 
     return (
         <Header>
@@ -39,6 +40,9 @@ function Navbar() {
                 </NavList>
                 <NavList>
                     <NavLink to="/repos" path={!repoPath}> Repositories </NavLink>
+                </NavList>
+                <NavList>
+                    <NavLink to="/issues" path={!issuePath}> Issues </NavLink>
                 </NavList>
             </NavLists>
         </Header>
