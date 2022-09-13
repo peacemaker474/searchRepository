@@ -9,7 +9,7 @@ const ReposWrapper = styled.main`
     margin: 0 auto;
 `;
 
-function ReposPage() {
+export default function ReposPage() {
     const [repos, setRepos] = useState();
 
     useEffect(() => {
@@ -22,5 +22,3 @@ function ReposPage() {
         </ReposWrapper>
     );
 }
-
-export default ReposPage;

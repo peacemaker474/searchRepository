@@ -51,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
 
     html {
         font-size: 10px;
+        font-family: 'Poppins', sans-serif;
     }
 `;
 

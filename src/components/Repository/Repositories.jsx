@@ -1,5 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
+import Toggle from './Toggle';
+
+export default function Repositories({ repos }) {
+    return (
+        <RepositoriesWrapper repos={!repos}>
+            {
+                !repos ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
+                    repos?.map((item) => (
+                        <RepositoryList key={item.id} data-name={item.name}>
+                            <RepoHeader>
+                                <RepoTitle> {item.name} </RepoTitle>
+                                {item.language ? <RepoLanguage> {item.language} </RepoLanguage> : null}
+                            </RepoHeader>
+                            <RepoDescription> {item.description} </RepoDescription>
+                            <RepoFooter>
+                                <OnwerBox>
+                                    <OwnerImage src={`${item.owner.avatar_url}`} />
+                                    <RepoOwner> {item.owner.login} </RepoOwner>
+                                </OnwerBox>
+                                <RepoUpdated> Updated {item.updated_at.slice(0, 10).replaceAll(",", "-")} </RepoUpdated>
+                            </RepoFooter>
+                            <Toggle repoId={item.id} />
+                        </RepositoryList>
+                    ))
+            }
+        </RepositoriesWrapper>
+    );
+}
 
 const RepositoriesWrapper = styled.ul`
     width: 60%;
@@ -10,6 +38,7 @@ const RepositoriesWrapper = styled.ul`
     grid-gap: 30px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
+    position: relative;
 `;
 
 const NoneReposTitle = styled.h2`
@@ -24,7 +53,6 @@ const RepositoryList = styled.li`
     margin: 0 auto;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    cursor: pointer;
     position: relative;
 `;
 
@@ -48,9 +76,9 @@ const RepoLanguage = styled.span`
     width: 60px;
     height: 30px;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 30px;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 5px;
 `;
 
@@ -64,7 +92,7 @@ const RepoDescription = styled.p`
 `;
 
 const RepoFooter = styled.div`
-    width: 90%;
+    width: 95%;
     height: 20%;
     display: flex;
     align-items: center;
@@ -79,8 +107,8 @@ const OnwerBox = styled.div`
 `;
 
 const OwnerImage = styled.img`
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 `;
 
@@ -94,33 +122,3 @@ const RepoUpdated = styled.span`
     text-align: end;
     font-size: 1.1rem;
 `;
-
-function Repositories({ repos }) {
-    return (
-        <>
-            <RepositoriesWrapper repos={!repos}>
-                {
-                    !repos ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
-                        repos?.map((item) => (
-                            <RepositoryList key={item.id} data-name={item.name}>
-                                <RepoHeader>
-                                    <RepoTitle> {item.name} </RepoTitle>
-                                    {item.language ? <RepoLanguage> {item.language} </RepoLanguage> : null}
-                                </RepoHeader>
-                                <RepoDescription> {item.description} </RepoDescription>
-                                <RepoFooter>
-                                    <OnwerBox>
-                                        <OwnerImage src={`${item.owner.avatar_url}`} />
-                                        <RepoOwner> {item.owner.login} </RepoOwner>
-                                    </OnwerBox>
-                                    <RepoUpdated> Updated {item.updated_at.slice(0, 10).replaceAll(",", "-")} </RepoUpdated>
-                                </RepoFooter>
-                            </RepositoryList>
-                        ))
-                }
-            </RepositoriesWrapper>
-        </>
-    );
-}
-
-export default Repositories;

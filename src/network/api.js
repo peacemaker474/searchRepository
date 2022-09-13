@@ -9,15 +9,25 @@ export const fetchGetUserRepositories = async () => {
 };
 
 export const fetchGetRepoIssues = async () => {
-    // const userName = "peacemaker474";
+    const apiUrl = [
+        "https://api.github.com/repos/react-hook-form/devtools/issues?per_page=25",
+        "https://api.github.com/repos/TanStack/query/issues?per_page=25",
+        "https://api.github.com/repos/facebookexperimental/Recoil/issues?per_page=25",
+        "https://api.github.com/repos/microsoft/TypeScript/issues?per_page=25",
+    ];
+    const repoName = ["react-hook-form", "TanStack", "facebookexperimental", "microsoft"];
 
-    // fetch(`https://api.github.com/repos/${userName}/${repoName}/issues`)
+    const newData = await Promise.all(
+        apiUrl.map(async (item, i) => {
+            const response = await (await fetch(`${item}`)).json();
+            const newRes = response.map((item) => ({ ...item, name: repoName[i] }))
+            return [
+                ...newRes
+            ]
+        })
+    )
 
-    const response = await (
-        await fetch(`https://api.github.com/repos/microsoft/TypeScript/issues`)
-    ).json()
-
-    return response;
+    return newData.flat();
 };
 
 export const getRegisterData = () => {

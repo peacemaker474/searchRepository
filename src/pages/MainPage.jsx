@@ -8,12 +8,10 @@ const MainPageWrapper = styled.main`
     margin: 0 auto;
 `;
 
-function MainPage() {
+export default function MainPage() {
     return (
         <MainPageWrapper>
             <SearchForm />
         </MainPageWrapper>
     );
 }
-
-export default MainPage;
