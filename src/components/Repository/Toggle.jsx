@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
 export default function Toggle({ repoId, handleRemoveRepo }) {
     const [isVisble, setIsVisble] = useState(false);
 
-    const handleToggle = () => {
+    const handleToggle = useCallback(() => {
         setIsVisble(!isVisble);
-    }
+    }, [isVisble]);
 
     return (
         <ToggleWrapper onClick={handleToggle}>

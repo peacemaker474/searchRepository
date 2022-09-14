@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import Repositories from '../components/Repository/Repositories';
 import { getRegisterData, removeReposData } from '../network/api';
@@ -17,11 +17,11 @@ export default function ReposPage() {
         if (!item || item?.length !== 0) setRepos(item);
     }, []);
 
-    const handleRemoveRepo = (repoId) => () => {
+    const handleRemoveRepo = useCallback((repoId) => () => {
         removeReposData(repoId)
         const newRepo = repos.filter((item) => String(item.id) !== String(repoId));
         setRepos(newRepo);
-    }
+    }, [repos]);
 
     return (
         <ReposWrapper>

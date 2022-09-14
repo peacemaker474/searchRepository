@@ -1,21 +1,26 @@
+import { useMemo } from "react";
+import { useCallback } from "react";
 import styled from "styled-components";
 
 export default function Pagination({ totalPage, postsPerPage, setCurrentPage, currentPage }) {
 
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(totalPage / postsPerPage); i++) {
-        pageNumbers.push(i);
-    }
+    const pageNumbers = useMemo(() => {
+        const pages = [];
+        for (let i = 1; i <= Math.ceil(totalPage / postsPerPage); i++) {
+            pages.push(i);
+        }
+        return pages;
+    }, [totalPage, postsPerPage])
 
-    const handleChangePageNumber = (number) => () => {
+    const handleChangePageNumber = useCallback(number => () => {
         setCurrentPage(number - 1);
-    }
+    }, [setCurrentPage]);
 
     return (
         <Wrapper>
             <PageUl>
                 {
-                    pageNumbers.map((number) => (
+                    pageNumbers?.map((number) => (
                         <PageLi key={number} onClick={handleChangePageNumber(number)} aria-current={number === currentPage + 1 ? "page" : null}>
                             {number}
                         </PageLi>

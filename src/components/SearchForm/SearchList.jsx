@@ -1,10 +1,11 @@
 import React from 'react';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 import { getRegisterData, removeReposData, setRegisterData } from '../../network/api';
 
 export default function SearchList({ searchData, searchValue, setSearchValue, searchInput, setSearchData }) {
 
-    const handleRegisterRepo = (evt) => {
+    const handleRegisterRepo = useCallback((evt) => {
         const filterId = evt.target.dataset.name;
         const filterData = searchData.filter((value) => value.name === filterId);
 
@@ -13,15 +14,15 @@ export default function SearchList({ searchData, searchValue, setSearchValue, se
             setSearchData([]);
             searchInput.current.value = "";
         }
-    }
+    }, [setSearchValue, setSearchData, searchInput, searchData])
 
-    const handleRemoveRepo = (evt) => {
+    const handleRemoveRepo = useCallback((evt) => {
         if (removeReposData(evt.target.id)) {
             setSearchValue(null);
             setSearchData([]);
             searchInput.current.value = "";
         };
-    }
+    }, [setSearchValue, setSearchData, searchInput]);
 
     return (
         <AnswerLists>
