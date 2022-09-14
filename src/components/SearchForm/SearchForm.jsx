@@ -16,7 +16,7 @@ export default function SearchForm() {
         });
     }, [])
 
-    const handleSeacrh = async (evt) => {
+    const handleSeacrh = (evt) => {
         evt.preventDefault();
         const value = evt.currentTarget.value;
         setTimeout(() => {

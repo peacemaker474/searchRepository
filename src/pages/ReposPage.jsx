@@ -14,7 +14,7 @@ export default function ReposPage() {
 
     useEffect(() => {
         const item = getRegisterData();
-        if (item || item?.length !== 0) setRepos(item);
+        if (!item || item?.length !== 0) setRepos(item);
     }, []);
 
     const handleRemoveRepo = (repoId) => () => {
