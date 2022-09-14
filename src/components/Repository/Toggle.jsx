@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { removeReposData } from '../../network/api';
 
-export default function Toggle({ repoId, repos, setRepos }) {
+export default function Toggle({ repoId, handleRemoveRepo }) {
     const [isVisble, setIsVisble] = useState(false);
 
     const handleToggle = () => {
         setIsVisble(!isVisble);
-    }
-
-    const handleRemoveRepo = () => {
-        removeReposData(repoId)
-        const newRepo = repos.filter((item) => String(item.id) !== String(repoId));
-        setRepos(newRepo);
     }
 
     return (
@@ -20,7 +13,7 @@ export default function Toggle({ repoId, repos, setRepos }) {
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 128 512">
                 <path d="M64 360c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56zm0-160c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56zM120 96c0 30.9-25.1 56-56 56S8 126.9 8 96S33.1 40 64 40s56 25.1 56 56z" />
             </svg>
-            {isVisble && <RemoveBtn onClick={handleRemoveRepo}> 🗑 </RemoveBtn>}
+            {isVisble && <RemoveBtn onClick={handleRemoveRepo(repoId)}> 🗑 </RemoveBtn>}
         </ToggleWrapper>
     );
 }

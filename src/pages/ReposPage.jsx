@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Repositories from '../components/Repository/Repositories';
-import { getRegisterData } from '../network/api';
+import { getRegisterData, removeReposData } from '../network/api';
 
 const ReposWrapper = styled.main`
     max-width: 1180px;
@@ -15,12 +15,20 @@ export default function ReposPage() {
     useEffect(() => {
         const item = getRegisterData();
         if (item || item?.length !== 0) setRepos(item);
-
     }, []);
+
+    const handleRemoveRepo = (repoId) => () => {
+        removeReposData(repoId)
+        const newRepo = repos.filter((item) => String(item.id) !== String(repoId));
+        setRepos(newRepo);
+    }
 
     return (
         <ReposWrapper>
-            <Repositories repos={repos} setRepos={setRepos} />
+            <Repositories
+                repos={repos}
+                handleRemoveRepo={handleRemoveRepo}
+            />
         </ReposWrapper>
     );
 }

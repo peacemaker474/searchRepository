@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Toggle from './Toggle';
 
-export default function Repositories({ repos, setRepos }) {
+export default function Repositories({ repos, handleRemoveRepo }) {
     return (
         <RepositoriesWrapper repos={!repos || repos?.length === 0 ? true : false}>
             {
@@ -21,7 +21,7 @@ export default function Repositories({ repos, setRepos }) {
                                 </OnwerBox>
                                 <RepoUpdated> Updated {item.updated_at.slice(0, 10).replaceAll(",", "-")} </RepoUpdated>
                             </RepoFooter>
-                            <Toggle repoId={item.id} setRepos={setRepos} repos={repos} />
+                            <Toggle repoId={item.id} handleRemoveRepo={handleRemoveRepo} />
                         </RepositoryList>
                     ))
             }
