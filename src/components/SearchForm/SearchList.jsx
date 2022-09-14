@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { getRegisterData, removeReposData, setRegisterData } from '../../network/api';
 
 export default function SearchList({ searchData, searchValue, setSearchValue, searchInput, setSearchData }) {
+
     const handleRegisterRepo = (evt) => {
         const filterId = evt.target.dataset.name;
         const filterData = searchData.filter((value) => value.name === filterId);

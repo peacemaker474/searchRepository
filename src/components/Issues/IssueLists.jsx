@@ -17,15 +17,21 @@ export default function IssueLists({ issueData, currentPage, postsPerPage }) {
                 <IssueLanguage> Language </IssueLanguage>
             </IssuesList>
             {
-                currentIssues(issueData) && currentIssues(issueData)?.map((issue) => (
-                    <IssuesList key={issue.id}>
-                        <RepoTitle> {issue.name} </RepoTitle>
-                        <IssueLink href={issue.html_url} target="_blank">
-                            {issue.title.length > 80 ? `${issue.title.substr(0, 80)}...` : issue.title}
-                        </IssueLink>
-                        <IssueLanguage> Typescript </IssueLanguage>
+                issueData && issueData?.length === 0 ? (
+                    <IssuesList>
+                        <NoneIssue> 가져올 이슈가 없습니다. </NoneIssue>
                     </IssuesList>
-                ))
+                ) : (
+                    currentIssues(issueData) && currentIssues(issueData)?.map((issue) => (
+                        <IssuesList key={issue.id}>
+                            <RepoTitle> {issue.name} </RepoTitle>
+                            <IssueLink href={issue.html_url} target="_blank">
+                                {issue.title.length > 80 ? `${issue.title.substr(0, 80)}...` : issue.title}
+                            </IssueLink>
+                            <IssueLanguage> Typescript </IssueLanguage>
+                        </IssuesList>
+                    ))
+                )
             }
         </IssuesLists>
     );
@@ -79,4 +85,11 @@ const IssueLink = styled.a`
 const IssueLanguage = styled.p`
     width: 10%;
     text-align: end;
+`;
+
+const NoneIssue = styled.h2`
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
 `;
