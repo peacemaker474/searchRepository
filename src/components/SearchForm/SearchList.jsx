@@ -7,19 +7,19 @@ export default function SearchList({ searchData, searchValue, setSearchValue, se
         const filterId = evt.target.dataset.name;
         const filterData = searchData.filter((value) => value.name === filterId);
 
-        setRegisterData(filterData[0]);
-
-        setSearchValue(null);
-        setSearchData([]);
-        searchInput.current.value = "";
+        if (setRegisterData(filterData[0])) {
+            setSearchValue(null);
+            setSearchData([]);
+            searchInput.current.value = "";
+        }
     }
 
     const handleRemoveRepo = (evt) => {
-        removeReposData(evt.target.id);
-
-        setSearchValue(null);
-        setSearchData([]);
-        searchInput.current.value = "";
+        if (removeReposData(evt.target.id)) {
+            setSearchValue(null);
+            setSearchData([]);
+            searchInput.current.value = "";
+        };
     }
 
     return (

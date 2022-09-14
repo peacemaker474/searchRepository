@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Toggle from './Toggle';
 
 export default function Repositories({ repos }) {
+    console.log(repos);
     return (
-        <RepositoriesWrapper repos={!repos}>
+        <RepositoriesWrapper repos={repos?.length === 0 ? true : false}>
             {
-                !repos ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
+                repos?.length === 0 ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
                     repos?.map((item) => (
                         <RepositoryList key={item.id} data-name={item.name}>
                             <RepoHeader>
