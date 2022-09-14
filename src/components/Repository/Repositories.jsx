@@ -2,12 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Toggle from './Toggle';
 
-export default function Repositories({ repos }) {
-    console.log(repos);
+export default function Repositories({ repos, setRepos }) {
     return (
-        <RepositoriesWrapper repos={repos?.length === 0 ? true : false}>
+        <RepositoriesWrapper repos={!repos || repos?.length === 0 ? true : false}>
             {
-                repos?.length === 0 ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
+                !repos || repos?.length === 0 ? <NoneReposTitle> 등록된 레포지토리가 없습니다. </NoneReposTitle> :
                     repos?.map((item) => (
                         <RepositoryList key={item.id} data-name={item.name}>
                             <RepoHeader>
@@ -22,7 +21,7 @@ export default function Repositories({ repos }) {
                                 </OnwerBox>
                                 <RepoUpdated> Updated {item.updated_at.slice(0, 10).replaceAll(",", "-")} </RepoUpdated>
                             </RepoFooter>
-                            <Toggle repoId={item.id} />
+                            <Toggle repoId={item.id} setRepos={setRepos} repos={repos} />
                         </RepositoryList>
                     ))
             }

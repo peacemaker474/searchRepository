@@ -13,12 +13,14 @@ export default function ReposPage() {
     const [repos, setRepos] = useState();
 
     useEffect(() => {
-        setRepos(getRegisterData());
+        const item = getRegisterData();
+        if (item || item?.length !== 0) setRepos(item);
+
     }, []);
 
     return (
         <ReposWrapper>
-            <Repositories repos={repos} />
+            <Repositories repos={repos} setRepos={setRepos} />
         </ReposWrapper>
     );
 }

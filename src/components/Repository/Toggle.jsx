@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { removeReposData } from '../../network/api';
 
-export default function Toggle({ repoId }) {
+export default function Toggle({ repoId, repos, setRepos }) {
     const [isVisble, setIsVisble] = useState(false);
 
     const handleToggle = () => {
@@ -11,6 +11,8 @@ export default function Toggle({ repoId }) {
 
     const handleRemoveRepo = () => {
         removeReposData(repoId)
+        const newRepo = repos.filter((item) => String(item.id) !== String(repoId));
+        setRepos(newRepo);
     }
 
     return (
